@@ -5,6 +5,7 @@ using UnityEngine;
 public class FPSCameraScript : MonoBehaviour
 {
     // Start is called before the first frame update
+    float sensXY, sensZ;
     void Start()
     {
         
@@ -15,4 +16,15 @@ public class FPSCameraScript : MonoBehaviour
     {
         
     }
+    internal void UpdatePosition(MainCharacterScript myCharacter, float horizontal, float vertical)
+    {
+        transform.position = myCharacter.transform.position;
+        sensXY += horizontal;
+        sensZ += vertical;
+
+        transform.rotation = Quaternion.AngleAxis(sensZ, Vector3.right) * Quaternion.AngleAxis(sensXY, Vector3.up);
+
+
+            transform.LookAt(transform.position + transform.forward, Vector3.up);
+            }
 }
