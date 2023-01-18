@@ -6,15 +6,20 @@ public class MainCharacterScript : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
     Vector2 look;
+    private float mass = 1f;
     private float speed;
     private float MouseSensitivity = 3f;
     const float Walking_speed = 3, Running_speed = 8, Crouch_speed = 3;
+  
+
+
   
     // Start is called before the first frame update
     void Start()
     {
         speed = Walking_speed;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -41,6 +46,7 @@ public class MainCharacterScript : MonoBehaviour
         input = Vector3.ClampMagnitude(input, 1f);//so we won't move digonally faster than moving normally//
 
         UpdateLook();
+     
        
        
     }
@@ -55,5 +61,4 @@ public class MainCharacterScript : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, look.x, 0);
        
     }
-   
 }
