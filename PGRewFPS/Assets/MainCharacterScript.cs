@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MainCharacterScript : MonoBehaviour
 {
+    FPSCameraScript camera;
     float speed;
     const float Walking_speed = 3, Running_speed = 8, Crouch_speed = 3;
 
@@ -11,6 +12,7 @@ public class MainCharacterScript : MonoBehaviour
     void Start()
     {
         speed = Walking_speed;
+        camera = FindObjectOfType<FPSCameraScript>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class MainCharacterScript : MonoBehaviour
             transform.position -= speed * transform.forward * Time.deltaTime;
         }
 
+        camera.UpdatePosition(this, Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
     }
 }
