@@ -13,6 +13,8 @@ public class MainCharacterScript : MonoBehaviour
     {
         speed = Walking_speed;
         camera = FindObjectOfType<FPSCameraScript>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -35,7 +37,9 @@ public class MainCharacterScript : MonoBehaviour
             transform.position -= speed * transform.forward * Time.deltaTime;
         }
 
-        camera.UpdatePosition(this, Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        camera.UpdatePosition(this, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
     }
+
+  
 }
