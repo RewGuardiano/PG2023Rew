@@ -18,11 +18,5 @@ public class PickUpScript : MonoBehaviour
     {
         
     }
-    internal void LastestOwner(MainCharacterScript mainCharacter, Transform hand)
-    {
-        currentState = PickUpItemStates.Held;
-        transform.parent = hand;
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-    }
+   
 }
