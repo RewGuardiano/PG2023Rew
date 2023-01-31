@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCSCript : MonoBehaviour,Ihealth
 {
-    public float health = 100f;
+    public float health = 50f;
     public void TakeDamage(float amountDamage)
     {
         health -= amountDamage;
