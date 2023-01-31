@@ -28,6 +28,12 @@ public class GunScript : MonoBehaviour
         if(Physics.Raycast(fpsCamera2.transform.position , fpsCamera2.transform.forward,out hit, range)){
 
             Debug.Log(hit.transform.name);
+            Ihealth ObjHit= hit.transform.GetComponent<Ihealth>();
+            if (ObjHit != null)
+            {
+                ObjHit.TakeDamage(50f);
+            }
+          
         }
 
     }
