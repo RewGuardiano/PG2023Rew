@@ -7,6 +7,10 @@ public class MainCharacterScript : MonoBehaviour
     FPSCameraScript Camera;
     float speed;
     const float Walking_speed = 3, Running_speed = 8, Crouch_speed = 3;
+    public Rigidbody rb;
+    public float horizontalSpeed = 1f;
+    float v;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +47,9 @@ public class MainCharacterScript : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
+
+        float h = horizontalSpeed * Input.GetAxis("Mouse X");
+        transform.Rotate(v, h, 0);
     }
 
   
