@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class NPCSCript : MonoBehaviour,Ihealth
 {
-    public float health = 50f;
+    Animator NPCAnimator;
+    public float currentspeed;
+    public float health = 100f;
     public void TakeDamage(float amountDamage)
     {
         health -= amountDamage;
@@ -20,4 +22,10 @@ public class NPCSCript : MonoBehaviour,Ihealth
     {
         Destroy(gameObject);
     }
+
+
+    
+
+
+
 }
