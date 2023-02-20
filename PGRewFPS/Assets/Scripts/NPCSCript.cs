@@ -1,29 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCSCript : MonoBehaviour,Ihealth
 {
 
-    public float moveSpeed = 3f;
-    public float rotSpeed = 10f;
-
-    private bool isWandering = false;
-    private bool isRotatingLeft = false;
-    private bool isRotatingRight = false;
-    private bool isWalking = false;
-
     Animator NPCAnimator;
+    public Transform centrepoint;
+    public NavMeshAgent agent;
     public float health = 100f;
-    public GameObject Dummy;
+    public float range = 10f;
     public void TakeDamage(float amountDamage)
     {
         health -= amountDamage;
         if(health <= 0f)
         {
             ObjDestroyed();
-            Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
-            Dummy = (GameObject)Instantiate(Dummy, RandomSpawnPosition, Quaternion.identity);
+          //  Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
+           // Dummy = (GameObject)Instantiate(Dummy, RandomSpawnPosition, Quaternion.identity);
 
         }
     }
@@ -35,67 +30,45 @@ public class NPCSCript : MonoBehaviour,Ihealth
         Destroy(gameObject);
     }
 
+    void Start()
+    {
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        NPCAnimator = GetComponent<Animator>();
+    }
+    bool RandomPoint(Vector3 center, float range , out Vector3 result)
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Vector3 randomPoint = center + Random.insideUnitSphere * range;
+            NavMeshHit hit;
 
-    
+            if(NavMesh.SamplePosition(randomPoint,out hit, 1.0f, NavMesh.AllAreas))
+            {
+                result = hit.position;
+                return true;
+            }
+        }
+        result = Vector3.zero;
+        return false;
+    }
+
     void Update()
     {
-        NPCAnimator = GetComponent<Animator>();
-        if(isWandering == false)
-        {
-            StartCoroutine(Wander());
-
-        }
-        if(isRotatingRight == true)
-        {
-            gameObject.GetComponent<Animator>().Play("breathe");
-            transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
-
-        }
-
-        if (isRotatingLeft == true)
+        Vector3 point;
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
 
-            gameObject.GetComponent<Animator>().Play("breathe");
-            transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
-        }
-        if(isWalking == true)
-        {
-            gameObject.GetComponent<Animator>().Play("walk");
-            transform.position += transform.forward * moveSpeed * Time.deltaTime * -rotSpeed;
-        }
 
+            if(RandomPoint(centrepoint.position,range,out point))
+            {
+                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+                agent.SetDestination(point);
+            }
+
+        }
     }
 
-    IEnumerator Wander()
-    {
 
-        int rotTime = Random.Range(1, 1);
-        int rotateWait = Random.Range(1, 1);
-        int rotateLorR = Random.Range(1, 2);
-        int walkWait = Random.Range(1, 1);
-        int walkTime = Random.Range(1, 1);
-
-        isWandering = true;
-
-        yield return new WaitForSeconds(walkWait);
-        isWalking = true;
-        yield return new WaitForSeconds(walkTime);
-        isWalking = false;
-        yield return new WaitForSeconds(rotateWait);
-        if (rotateLorR == 1)
-        {
-            isRotatingRight = true;
-            yield return new WaitForSeconds(rotTime);
-            isRotatingRight = false;
-        }
-        if (rotateLorR == 2)
-        {
-            isRotatingLeft = true;
-            yield return new WaitForSeconds(rotTime);
-            isRotatingLeft = false;
-        }
-        isWandering = false;
-    }
 }
 
 
