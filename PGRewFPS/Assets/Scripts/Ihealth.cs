@@ -5,5 +5,4 @@ using UnityEngine;
  interface Ihealth
 {
     void TakeDamage(float amountDamage);
-    
 }
