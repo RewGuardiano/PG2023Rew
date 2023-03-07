@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,12 @@ using UnityEngine.AI;
 
 public class NPCSCript : MonoBehaviour,Ihealth
 {
-
+    
     Animator NPCAnimator;
     public GameObject Dummy;
     public float health = 100f;
     public float range = 10f;
+    GameManagerScript theManager;
 
 
     public void TakeDamage(float amountDamage)
@@ -17,12 +19,17 @@ public class NPCSCript : MonoBehaviour,Ihealth
         health -= amountDamage;
         if (health <= 0f)
         {
+            theManager.ImDead(this);
             ObjDestroyed();
-            Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
-            Dummy = Instantiate(Dummy, RandomSpawnPosition, Quaternion.identity);
+ 
 
         }
     }
+    void ObjDestroyed()
+    {
+        Destroy(gameObject);
+    }
+
     void Start()
     {
         NPCAnimator = GetComponent<Animator>();
@@ -31,7 +38,8 @@ public class NPCSCript : MonoBehaviour,Ihealth
     void Update()
 
     {
-       
+    
+
 
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -52,12 +60,10 @@ public class NPCSCript : MonoBehaviour,Ihealth
       
     }
 
-    void ObjDestroyed()
+    internal void ImtheDaddy(GameManagerScript gameManagerScript)
     {
-        Destroy(gameObject);
+        theManager = gameManagerScript;
     }
-
-
 }
 
 
