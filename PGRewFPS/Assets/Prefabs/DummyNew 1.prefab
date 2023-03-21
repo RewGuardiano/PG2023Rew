@@ -532,6 +532,7 @@ GameObject:
   - component: {fileID: 5719503742809321974}
   - component: {fileID: 5719503742145999821}
   - component: {fileID: 6624902052455745319}
+  - component: {fileID: 4066351624715313964}
   m_Layer: 0
   m_Name: DummyNew 1
   m_TagString: Untagged
@@ -588,7 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b45e8cc8ac8ca4291d71496edd88c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   Dummy: {fileID: 4436967771515330423, guid: 13e0b093fcc38d54fa4ae87708c23f49, type: 3}
   health: 100
   range: 10
@@ -606,6 +606,18 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4066351624715313964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719503742802051980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c830d3f6b61814081bbfd5a2d66005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5719503742802051982
 GameObject:
   m_ObjectHideFlags: 0
