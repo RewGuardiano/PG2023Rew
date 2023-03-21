@@ -21,7 +21,8 @@ public class NPCSCript : MonoBehaviour,Ihealth
         {
             theManager.ImDead(this);
             ObjDestroyed();
- 
+        
+            
 
         }
     }
@@ -33,28 +34,15 @@ public class NPCSCript : MonoBehaviour,Ihealth
     void Start()
     {
         NPCAnimator = GetComponent<Animator>();
+       
+
+
      
     }
     void Update()
 
     {
-    
-
-
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-
-            NPCAnimator.SetBool("isWalking", true);
-        }
-        //else if(Input.GetKeyDown)
-        {
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-            NPCAnimator.SetBool("StartStrafe", true);
+ 
 
 
       
