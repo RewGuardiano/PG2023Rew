@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
 
-   
     int MaxNumberOfDummys = 10;
     List<NPCSCript> currentDummies;
     public Transform DummyCloneTemplate;
@@ -30,9 +29,10 @@ public class GameManagerScript : MonoBehaviour
 
     private void spawnDummy()
     {
-   
+       
             Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
             Transform Clone = Instantiate(DummyCloneTemplate, RandomSpawnPosition, Quaternion.identity);
+            Clone.transform.LookAt(transform.forward);
      
         NPCSCript newClone = Clone.GetComponent<NPCSCript>();
         newClone.ImtheDaddy(this);
