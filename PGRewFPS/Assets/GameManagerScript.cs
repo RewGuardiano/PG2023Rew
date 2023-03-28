@@ -34,9 +34,9 @@ public class GameManagerScript : MonoBehaviour
             Transform Clone = Instantiate(DummyCloneTemplate, RandomSpawnPosition, Quaternion.identity);
             Clone.transform.LookAt(transform.forward);
      
-        NPCSCript newClone = Clone.GetComponent<NPCSCript>();
-        newClone.ImtheDaddy(this);
-        currentDummies.Add(newClone);
+            NPCSCript newClone = Clone.GetComponent<NPCSCript>();
+            newClone.ImtheDaddy(this);
+            currentDummies.Add(newClone);
 
       
         
