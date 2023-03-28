@@ -7,22 +7,35 @@ public class DummyControl : MonoBehaviour, Ihealth
     enum AIStates { Patrol, GunshotHeard, Dummyhit }
 
 
-   // public Transform[] patrolPoints;
+     Transform[] patrolPoints;
     public float waitTime = 1f;
     private int currentPointIndex = 0;
     private Rigidbody rb;
-  
+    int number_of_patrol_points;
 
+    Vector3 destination;
     AIStates dummy_states = AIStates.Patrol;
  
     Animator dummy_animator;
-    private float rotation_speed = 180;
+    private float thresholdDistance = 0.05f;
+
     void Start()
     {
         dummy_animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
-      
+
+        patrolPointScript[] allPoints = FindObjectsOfType<patrolPointScript>();
+
+        number_of_patrol_points = Random.Range(2, allPoints.Length-1);
+
+        patrolPoints = new Transform[number_of_patrol_points];
+
+        for (int i =0; i<number_of_patrol_points; i++)
+        {
+            patrolPoints[i] = allPoints[Random.Range(0, allPoints.Length - 1)].transform;
+        }
+
         
         
     }
@@ -38,33 +51,26 @@ public class DummyControl : MonoBehaviour, Ihealth
             case AIStates.Patrol:
 
                 dummy_animator.SetBool("isWalking", true);
+                transform.LookAt(patrolPoints[currentPointIndex]);
+             
+                if (haveReachedWayPoint(transform.position, patrolPoints[currentPointIndex].position))
+                {
+                    currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+                    StartCoroutine(WaitAtPoint());
+                }
 
                 break;
 
         }
 
-      /*  if (transform.position == patrolPoints[currentPointIndex].position)
-        {
-            currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
-            StartCoroutine(WaitAtPoint());
-        }
-
-        MoveToNextPoint();
-
-        void MoveToNextPoint()
-        {
-            Vector3 direction = (patrolPoints[currentPointIndex].position - transform.position).normalized;
-            rb.MovePosition(transform.position + direction * Time.deltaTime);
+ 
 
 
-        }
 
-        IEnumerator WaitAtPoint()
-        {
-            yield return new WaitForSeconds(waitTime);
-        }
 
-        */
+
+
+       
 
 
 
@@ -89,6 +95,24 @@ public class DummyControl : MonoBehaviour, Ihealth
 
 
        
+    }
+
+    private bool haveReachedWayPoint(Vector3 npc_pos, Vector3 way_point_pos)
+    {
+        Vector3 ignore_y_waypoint_position = new Vector3(way_point_pos.x, npc_pos.y, way_point_pos.z);
+        return Vector3.Distance(npc_pos, ignore_y_waypoint_position) < thresholdDistance;
+    }
+
+    IEnumerator WaitAtPoint()
+    {
+        yield return new WaitForSeconds(waitTime);
+    }
+    void MoveToNextPoint()
+    {
+        Vector3 direction = (patrolPoints[currentPointIndex].position - transform.position).normalized;
+        rb.MovePosition(transform.position + direction * Time.deltaTime);
+
+
     }
     public void TakeDamage(float amountDamage)
     {

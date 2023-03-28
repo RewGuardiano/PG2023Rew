@@ -2121,6 +2121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c830d3f6b61814081bbfd5a2d66005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   waitTime: 1
 --- !u!54 &4977989353696611667
 Rigidbody:
