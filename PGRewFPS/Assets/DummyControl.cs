@@ -6,18 +6,19 @@ public class DummyControl : MonoBehaviour, Ihealth
 {
     enum AIStates { Patrol, GunshotHeard, Dummyhit }
 
-
-     Transform[] patrolPoints;
+    public float Health { get; private set; } = 100f;
+    Transform[] patrolPoints;
     public float waitTime = 1f;
     private int currentPointIndex = 0;
     private Rigidbody rb;
     int number_of_patrol_points;
 
-    Vector3 destination;
     AIStates dummy_states = AIStates.Patrol;
  
     Animator dummy_animator;
     private float thresholdDistance = 0.05f;
+
+   
 
     void Start()
     {
@@ -61,16 +62,30 @@ public class DummyControl : MonoBehaviour, Ihealth
 
                 break;
 
+            case AIStates.GunshotHeard:
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+
+                    dummy_animator.SetBool("isWalking", false);
+                    dummy_animator.SetBool("isRunning", true);
+
+                }
+                break;
+            
+            case AIStates.Dummyhit:
+ 
+                    dummy_animator.SetBool("Jumping", true);
+
+                break;
+
+
+
+
+
+
         }
 
- 
-
-
-
-
-
-
-       
 
 
 
@@ -94,8 +109,18 @@ public class DummyControl : MonoBehaviour, Ihealth
 
 
 
-       
+
+
+
+
+
+
+
+
+
+
     }
+
 
     private bool haveReachedWayPoint(Vector3 npc_pos, Vector3 way_point_pos)
     {
@@ -116,6 +141,12 @@ public class DummyControl : MonoBehaviour, Ihealth
     }
     public void TakeDamage(float amountDamage)
     {
-        throw new KeyNotFoundException();
+        Health -= amountDamage;
+        if (Health <= 50)
+        {
+
+            dummy_states = AIStates.Dummyhit;
+        }
     }
+
 }

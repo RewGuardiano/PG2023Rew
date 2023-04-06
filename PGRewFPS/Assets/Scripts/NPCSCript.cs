@@ -9,7 +9,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
     
     Animator NPCAnimator;
     public GameObject Dummy;
-    public float health = 100f;
+    public float health = 150f;
     public float range = 10f;
     GameManagerScript theManager;
 
