@@ -6,7 +6,7 @@ public class GunScript : MonoBehaviour
 {
     public float damage = 10f;
     public float range = 100f;
-
+    GameManagerScript theManager;
 
     public ParticleSystem MuzzleFlash;
     public Camera fpsCamera2;
@@ -14,7 +14,7 @@ public class GunScript : MonoBehaviour
 
     void Start()
     {
-
+        theManager = FindObjectOfType<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -27,6 +27,8 @@ public class GunScript : MonoBehaviour
         }
         void ShootGun()
         {
+
+            theManager.ImShooting(transform.parent);
             MuzzleFlash.Play();
             RaycastHit hit;
             if (Physics.Raycast(fpsCamera2.transform.position, fpsCamera2.transform.forward, out hit, range))

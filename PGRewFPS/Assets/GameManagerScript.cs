@@ -42,6 +42,14 @@ public class GameManagerScript : MonoBehaviour
         
     }
 
+    internal void ImShooting(Transform personShooting)
+    {
+        foreach (NPCSCript npc in currentDummies)
+        {
+            npc.gunshotHeard(personShooting);
+        }
+    }
+
     internal void ImDead(NPCSCript nPCSCript)
     {
         currentDummies.Remove(nPCSCript);
