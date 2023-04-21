@@ -21,7 +21,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
     public float Health { get; private set; } = 100f;
     Transform[] patrolPoints;
     public float waitTime = 1f;
-    private int currentPointIndex = 0;
+    private int currentPointIndex=1;
     private Rigidbody rb;
     int number_of_patrol_points;
 
@@ -102,7 +102,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
               
                 if (distanceForChars(lockedOnTarget.position, transform.position) < meleeDistance)
                 {
-                    print("Hello");
+                    print("Hit");
                     dummy_current_state = AIStates.Attack;
 
               
