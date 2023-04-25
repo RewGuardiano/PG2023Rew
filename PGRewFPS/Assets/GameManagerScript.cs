@@ -42,7 +42,7 @@ public class GameManagerScript : MonoBehaviour
         
     }
 
-    internal void ImShooting(Transform personShooting)
+    internal void ImShooting(MainCharacterScript personShooting)
     {
         foreach (NPCSCript npc in currentDummies)
         {

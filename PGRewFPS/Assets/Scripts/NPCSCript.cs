@@ -10,7 +10,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
     Animator NPCAnimator;
     public GameObject Dummy;
     public float health = 150f;
-    public float range = 10f;
+    public float range = 1f;
     GameManagerScript theManager;
 
     enum AIStates
@@ -19,6 +19,8 @@ public class NPCSCript : MonoBehaviour,Ihealth
     }
 
     public float Health { get; private set; } = 100f;
+    public float ATTACK_TIME = 0.833F;
+
     Transform[] patrolPoints;
     public float waitTime = 1f;
     private int currentPointIndex=1;
@@ -29,10 +31,9 @@ public class NPCSCript : MonoBehaviour,Ihealth
 
     Animator dummy_animator;
     private float thresholdDistance = 0.05f;
-    private Transform lockedOnTarget;
-    private float meleeDistance = 2f;
-
-
+    private MainCharacterScript lockedOnTarget;
+    private float meleeDistance = 2.5f;
+    private float attackTimer;
 
     public void TakeDamage(float amountDamage)
     {
@@ -98,20 +99,41 @@ public class NPCSCript : MonoBehaviour,Ihealth
 
             case AIStates.GunshotHeard:
 
-                transform.LookAt(new Vector3(lockedOnTarget.position.x, transform.position.y, lockedOnTarget.position.z));
-              
-                if (distanceForChars(lockedOnTarget.position, transform.position) < meleeDistance)
+                transform.LookAt(new Vector3(lockedOnTarget.transform.position.x, transform.position.y, lockedOnTarget.transform.position.z));
+
+                if (distanceForChars(lockedOnTarget.transform.position, transform.position) < meleeDistance)
                 {
                     print("Hit");
                     dummy_current_state = AIStates.Attack;
 
-              
+                    //PunchPlayer();
                     dummy_animator.SetBool("Attacking", true);
+                    attackTimer = ATTACK_TIME;
                 }
 
                 break;
 
 
+            case AIStates.Attack:
+
+                attackTimer -= Time.deltaTime;
+                if (attackTimer <0)
+                {
+                    lockedOnTarget.TakeDamage(10);
+                }
+
+                if (distanceForChars(lockedOnTarget.transform.position, transform.position) > meleeDistance)
+                {
+                    dummy_current_state = AIStates.GunshotHeard;
+                    dummy_animator.SetBool("Attacking", false);
+
+                    dummy_animator.SetBool("isRunning", true);
+
+                }
+
+
+                    break;
+            
         }
     }
 
@@ -142,7 +164,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
         }
 
 
-        internal void gunshotHeard(Transform playerWhoShot)
+        internal void gunshotHeard(MainCharacterScript playerWhoShot)
         {
             dummy_current_state = AIStates.GunshotHeard;
      
@@ -151,35 +173,54 @@ public class NPCSCript : MonoBehaviour,Ihealth
         lockedOnTarget = playerWhoShot;
 
         }
+        
+    /*    public void PunchPlayer()
+    {
+    
+        RaycastHit punched;
+        if (Physics.Raycast(Dummy.transform.position, Dummy.transform.forward, out punched, range))
+        {
 
+            Debug.Log(punched.transform.name);
+            Ihealth ObjHit = punched.transform.GetComponent<Ihealth>();
+            if (ObjHit != null)
+            {
+                ObjHit.TakeDamage(50f);
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }*/
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     internal void ImtheDaddy(GameManagerScript gameManagerScript)
     {
