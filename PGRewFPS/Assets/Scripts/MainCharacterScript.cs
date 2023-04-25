@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCharacterScript : MonoBehaviour
+public class MainCharacterScript : MonoBehaviour,Ihealth
 {
     FPSCameraScript Camera;
     float speed;
@@ -10,6 +10,7 @@ public class MainCharacterScript : MonoBehaviour
     public Rigidbody rb;
     public float horizontalSpeed = 1f;
     float v;
+    float CharacterHealth = 200f; 
     
 
     // Start is called before the first frame update
@@ -51,6 +52,9 @@ public class MainCharacterScript : MonoBehaviour
         float h = horizontalSpeed * Input.GetAxis("Mouse X");
         transform.Rotate(v, h, 0);
     }
+    public void TakeDamage(float amountDamage)
+    {
+        print("OUCH" + amountDamage.ToString());
+    }
 
-  
 }
