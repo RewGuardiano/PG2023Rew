@@ -1,21 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
-public class MainCharacterScript : MonoBehaviour,Ihealth
+
+public class MainCharacterScript : MonoBehaviour
 {
+    public TextMeshProUGUI playerHpText;
     FPSCameraScript Camera;
     float speed;
-    const float Walking_speed = 3, Running_speed = 8, Crouch_speed = 3;
+    const float Walking_speed =2f;
     public Rigidbody rb;
-    public float horizontalSpeed = 1f;
+    public float horizontalSpeed = 1.5f;
     float v;
-    float CharacterHealth = 200f; 
-    
+    public static int CharacterHealth = 1000;
+    public static bool isGameOver;
+    public GameObject BloodOverlay;
 
     // Start is called before the first frame update
     void Start()
     {
+        isGameOver = false;
+
         speed = Walking_speed;
         Camera = FindObjectOfType<FPSCameraScript>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -51,10 +58,29 @@ public class MainCharacterScript : MonoBehaviour,Ihealth
 
         float h = horizontalSpeed * Input.GetAxis("Mouse X");
         transform.Rotate(v, h, 0);
+
+        playerHpText.text = "+" + CharacterHealth;
+        if (isGameOver)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
-    public void TakeDamage(float amountDamage)
+    public IEnumerator TookDamage(int amountdamage)
     {
-        print("OUCH" + amountDamage.ToString());
+        print("OUCH" + amountdamage.ToString());
+        BloodOverlay.SetActive(true);
+        CharacterHealth -= amountdamage;
+
+        if(CharacterHealth  <= 0)
+        
+            //Show GameOver Screen
+            isGameOver = true;
+     
+
+
+
+        yield return new WaitForSeconds(5.5f);
+        BloodOverlay.SetActive(false);
     }
 
 }

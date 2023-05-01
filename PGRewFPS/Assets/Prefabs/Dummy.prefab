@@ -2036,7 +2036,7 @@ GameObject:
   - component: {fileID: 8736810434811703134}
   - component: {fileID: 4977989353696611667}
   m_Layer: 0
-  m_Name: DummyNew 1 1
+  m_Name: Dummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2094,6 +2094,7 @@ MonoBehaviour:
   Dummy: {fileID: 4436967771515330423, guid: 13e0b093fcc38d54fa4ae87708c23f49, type: 3}
   health: 100
   range: 10
+  ATTACK_TIME: 0.833
   waitTime: 1
 --- !u!136 &8736810434811703134
 CapsuleCollider:
