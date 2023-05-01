@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour
 {
-    public float damage = 10f;
+    public int damage = 10;
     public float range = 100f;
     GameManagerScript theManager;
     MainCharacterScript theMan;
 
     public ParticleSystem MuzzleFlash;
     public Camera fpsCamera2;
+
     // Start is called before the first frame update
 
     void Start()
@@ -41,11 +42,22 @@ public class GunScript : MonoBehaviour
                 Ihealth ObjHit = hit.transform.GetComponent<Ihealth>();
                 if (ObjHit != null)
                 {
-                    ObjHit.TakeDamage(50f);
+                    ObjHit.TakeDamage(50);
+                    
+                }
+                else
+                {
+                    
+                        UIManager.instance.KillCount++;
+                        UIManager.instance.UpdateKillCounterUI();
+                    
+
                 }
 
             }
 
         }
     }
+  
+
 }

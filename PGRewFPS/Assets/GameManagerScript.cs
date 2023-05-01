@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
-
+    
     int MaxNumberOfDummys = 10;
     List<NPCSCript> currentDummies;
     public Transform DummyCloneTemplate;
@@ -23,9 +24,11 @@ public class GameManagerScript : MonoBehaviour
         
         if (currentDummies.Count < MaxNumberOfDummys)
             spawnDummy();
-    
+     
 
     }
+
+   
 
     private void spawnDummy()
     {

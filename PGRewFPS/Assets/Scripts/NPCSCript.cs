@@ -9,7 +9,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
     
     Animator NPCAnimator;
     public GameObject Dummy;
-    public float health = 150f;
+    public int health = 150;
     public float range = 1f;
     GameManagerScript theManager;
 
@@ -18,42 +18,47 @@ public class NPCSCript : MonoBehaviour,Ihealth
         Patrol, GunshotHeard,Attack
     }
 
-    public float Health { get; private set; } = 100f;
+    public int Health { get; private set; } = 100;
     public float ATTACK_TIME = 0.833F;
+
 
     Transform[] patrolPoints;
     public float waitTime = 1f;
     private int currentPointIndex=1;
     private Rigidbody rb;
     int number_of_patrol_points;
+   
 
     AIStates dummy_current_state = AIStates.Patrol;
 
     Animator dummy_animator;
     private float thresholdDistance = 0.05f;
     private MainCharacterScript lockedOnTarget;
-    private float meleeDistance = 2.5f;
+    private float meleeDistance = 2f;
     private float attackTimer;
 
-    public void TakeDamage(float amountDamage)
+    public void TakeDamage(int amountDamage)
     {
         health -= amountDamage;
-        if (health <= 0f)
+        if (health <= 0)
         {
             theManager.ImDead(this);
             ObjDestroyed();
-        
-            
+
+           
 
         }
     }
     void ObjDestroyed()
     {
         Destroy(gameObject);
+        UIManager.instance.KillCount++;
+        UIManager.instance.UpdateKillCounterUI();
     }
 
     void Start()
     {
+        
         NPCAnimator = GetComponent<Animator>();
 
         dummy_animator = GetComponent<Animator>();
@@ -106,7 +111,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
                     print("Hit");
                     dummy_current_state = AIStates.Attack;
 
-                    //PunchPlayer();
+                    
                     dummy_animator.SetBool("Attacking", true);
                     attackTimer = ATTACK_TIME;
                 }
@@ -115,12 +120,15 @@ public class NPCSCript : MonoBehaviour,Ihealth
 
 
             case AIStates.Attack:
-
+               
                 attackTimer -= Time.deltaTime;
                 if (attackTimer <0)
                 {
-                    lockedOnTarget.TakeDamage(10);
+                    StartCoroutine(FindObjectOfType<MainCharacterScript>().TookDamage(10));
+                   
+                   
                 }
+
 
                 if (distanceForChars(lockedOnTarget.transform.position, transform.position) > meleeDistance)
                 {
@@ -173,26 +181,9 @@ public class NPCSCript : MonoBehaviour,Ihealth
         lockedOnTarget = playerWhoShot;
 
         }
-        
-    /*    public void PunchPlayer()
-    {
-    
-        RaycastHit punched;
-        if (Physics.Raycast(Dummy.transform.position, Dummy.transform.forward, out punched, range))
-        {
-
-            Debug.Log(punched.transform.name);
-            Ihealth ObjHit = punched.transform.GetComponent<Ihealth>();
-            if (ObjHit != null)
-            {
-                ObjHit.TakeDamage(50f);
-            }
-
-        }*/
 
 
-    
-
+   
 
 
 
