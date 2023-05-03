@@ -81,7 +81,7 @@ public class MainCharacterScript : MonoBehaviour,Ihealth
             {
                 SceneManager.LoadScene(2);
                 Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.None ;
 
             }
             
