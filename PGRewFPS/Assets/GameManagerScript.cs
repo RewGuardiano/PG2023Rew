@@ -9,6 +9,7 @@ public class GameManagerScript : MonoBehaviour
     int MaxNumberOfDummys = 10;
     List<NPCSCript> currentDummies;
     public Transform DummyCloneTemplate;
+    public Transform MinionCloneTemplate;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +58,10 @@ public class GameManagerScript : MonoBehaviour
         foreach (NPCSCript npc in currentDummies)
         {
             npc.gunshotHeard(personShooting);
+        }
+        foreach(MinionScript minion in MinionCloneTemplate)
+        {
+            minion.gunshotHeard(personShooting);
         }
     }
 
