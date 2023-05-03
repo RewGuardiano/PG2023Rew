@@ -7642,9 +7642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHpText: {fileID: 733897914}
-  rb: {fileID: 2143531296}
   horizontalSpeed: 1
-  BloodOverlay: {fileID: 234439661}
+  CharacterHealth: 1000
 --- !u!4 &2143531295
 Transform:
   m_ObjectHideFlags: 0

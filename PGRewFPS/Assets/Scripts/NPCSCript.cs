@@ -4,38 +4,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCSCript : MonoBehaviour,Ihealth
+public class NPCSCript : MonoBehaviour, Ihealth
 {
-    
+
     Animator NPCAnimator;
     public GameObject Dummy;
     public int health = 150;
     public float range = 1f;
     GameManagerScript theManager;
+  
 
     enum AIStates
     {
-        Patrol, GunshotHeard,Attack
+        Patrol, GunshotHeard, Attack
     }
 
     public int Health { get; private set; } = 100;
-    public float ATTACK_TIME = 0.833F;
+    public float ATTACK_TIME = 0.0833f;
 
 
     Transform[] patrolPoints;
     public float waitTime = 1f;
-    private int currentPointIndex=1;
+    private int currentPointIndex = 1;
     private Rigidbody rb;
     int number_of_patrol_points;
    
+
 
     AIStates dummy_current_state = AIStates.Patrol;
 
     Animator dummy_animator;
     private float thresholdDistance = 0.05f;
     private MainCharacterScript lockedOnTarget;
-    private float meleeDistance = 2f;
+    private float meleeDistance = 1f;
     private float attackTimer;
+    public int attackdamage = 1;
 
     public void TakeDamage(int amountDamage)
     {
@@ -45,7 +48,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
             theManager.ImDead(this);
             ObjDestroyed();
 
-           
+
 
         }
     }
@@ -54,11 +57,12 @@ public class NPCSCript : MonoBehaviour,Ihealth
         Destroy(gameObject);
         UIManager.instance.KillCount++;
         UIManager.instance.UpdateKillCounterUI();
+
     }
 
     void Start()
     {
-        
+
         NPCAnimator = GetComponent<Animator>();
 
         dummy_animator = GetComponent<Animator>();
@@ -111,7 +115,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
                     print("Hit");
                     dummy_current_state = AIStates.Attack;
 
-                    
+
                     dummy_animator.SetBool("Attacking", true);
                     attackTimer = ATTACK_TIME;
                 }
@@ -120,13 +124,13 @@ public class NPCSCript : MonoBehaviour,Ihealth
 
 
             case AIStates.Attack:
-               
+
                 attackTimer -= Time.deltaTime;
-                if (attackTimer <0)
+                if (attackTimer <= 0)
                 {
-                    StartCoroutine(FindObjectOfType<MainCharacterScript>().TookDamage(10));
-                   
-                   
+
+                    DealDamage(lockedOnTarget);
+
                 }
 
 
@@ -140,10 +144,19 @@ public class NPCSCript : MonoBehaviour,Ihealth
                 }
 
 
-                    break;
-            
+                break;
+
         }
     }
+    public void DealDamage(MainCharacterScript target)
+    {
+        var atm = target.GetComponent<MainCharacterScript>();
+        if (atm != null)
+        {
+            atm.TakeDamage(attackdamage);
+        }
+    }
+
 
     private float distanceForChars(Vector3 position1, Vector3 position2)
     {
@@ -178,7 +191,7 @@ public class NPCSCript : MonoBehaviour,Ihealth
      
             dummy_animator.SetBool("isRunning", true);
  
-        lockedOnTarget = playerWhoShot;
+            lockedOnTarget = playerWhoShot;
 
         }
 

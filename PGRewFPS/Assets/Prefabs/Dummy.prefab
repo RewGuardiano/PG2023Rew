@@ -2094,8 +2094,9 @@ MonoBehaviour:
   Dummy: {fileID: 4436967771515330423, guid: 13e0b093fcc38d54fa4ae87708c23f49, type: 3}
   health: 100
   range: 10
-  ATTACK_TIME: 0.833
+  ATTACK_TIME: -1
   waitTime: 1
+  attackdamage: 1
 --- !u!136 &8736810434811703134
 CapsuleCollider:
   m_ObjectHideFlags: 0
