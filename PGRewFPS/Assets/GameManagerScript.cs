@@ -9,6 +9,7 @@ public class GameManagerScript : MonoBehaviour
     int MaxNumberOfDummys = 10;
     List<NPCSCript> currentDummies;
     public Transform DummyCloneTemplate;
+    public Transform MinionCloneTemplate;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,20 +21,27 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+
+            if (currentDummies.Count < MaxNumberOfDummys)
+                spawnDummy();
+
 
         
-        if (currentDummies.Count < MaxNumberOfDummys)
-            spawnDummy();
-     
-
     }
 
-   
+
+    private int numberOfDummiesKilled = 0;
 
     private void spawnDummy()
     {
-       
-            Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
+        if (numberOfDummiesKilled >=41)
+        {
+            return;
+        }
+
+        Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
             Transform Clone = Instantiate(DummyCloneTemplate, RandomSpawnPosition, Quaternion.identity);
             Clone.transform.LookAt(transform.forward);
      
@@ -51,10 +59,21 @@ public class GameManagerScript : MonoBehaviour
         {
             npc.gunshotHeard(personShooting);
         }
+        foreach(MinionScript minion in MinionCloneTemplate)
+        {
+            minion.gunshotHeard(personShooting);
+        }
     }
 
     internal void ImDead(NPCSCript nPCSCript)
     {
         currentDummies.Remove(nPCSCript);
+        numberOfDummiesKilled++;
+
+        if (numberOfDummiesKilled >= 41)
+        {
+            // Stop spawning dummies
+            return;
+        }
     }
 }

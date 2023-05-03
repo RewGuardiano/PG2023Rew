@@ -42,17 +42,10 @@ public class GunScript : MonoBehaviour
                 Ihealth ObjHit = hit.transform.GetComponent<Ihealth>();
                 if (ObjHit != null)
                 {
-                    ObjHit.TakeDamage(30);
+                    ObjHit.TakeDamage(50);
                     
                 }
-                else
-                {
-                    
-                        UIManager.instance.KillCount++;
-                        UIManager.instance.UpdateKillCounterUI();
-                    
-
-                }
+             
 
 
 
