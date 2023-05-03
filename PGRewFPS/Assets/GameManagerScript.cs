@@ -27,7 +27,7 @@ public class GameManagerScript : MonoBehaviour
             if (currentDummies.Count < MaxNumberOfDummys)
                 spawnDummy();
 
-
+              SpawnMinion();
         
     }
 
@@ -75,5 +75,12 @@ public class GameManagerScript : MonoBehaviour
             // Stop spawning dummies
             return;
         }
+    }
+
+    private void SpawnMinion()
+    {
+        Vector3 RandomSpawnPosition = new Vector3(Random.Range(-20, 18), 0, Random.Range(2, 18));
+        Transform Minion = Instantiate(MinionCloneTemplate, RandomSpawnPosition, Quaternion.identity);
+        Minion.transform.LookAt(transform.forward);
     }
 }
