@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: Assets/MainMenu.unity
     guid: 96011c92a012ee34aa3c75833118bc65
   - enabled: 1
-    path: Assets/KillCounterAdded.unity
-    guid: d8490dd9473f2334cbfc708f84b9005d
+    path: Assets/DamageCharacterScene.unity
+    guid: b8fc712b7ed90c74cbf5c32f95d7852f
   - enabled: 1
     path: Assets/GameOver.unity
     guid: e3497ae2357d94f4da3c4fde44755c74
-  - enabled: 1
-    path: Assets/DamageCharacterScene.unity
-    guid: b8fc712b7ed90c74cbf5c32f95d7852f
   m_configObjects: {}

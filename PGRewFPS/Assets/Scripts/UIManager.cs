@@ -6,11 +6,14 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+
     public static UIManager instance;
     [SerializeField]
     TextMeshProUGUI killCounterTMP;
     [HideInInspector]
     public int KillCount;
+   
+  
 
 
    private void Awake()
@@ -28,6 +31,8 @@ public class UIManager : MonoBehaviour
     public void UpdateKillCounterUI()
     {
         killCounterTMP.text = KillCount.ToString();
+
+       
     }
     void Start()
     {
@@ -39,4 +44,6 @@ public class UIManager : MonoBehaviour
     {
         
     }
+    
+
 }

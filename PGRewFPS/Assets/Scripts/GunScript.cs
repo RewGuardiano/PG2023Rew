@@ -42,7 +42,7 @@ public class GunScript : MonoBehaviour
                 Ihealth ObjHit = hit.transform.GetComponent<Ihealth>();
                 if (ObjHit != null)
                 {
-                    ObjHit.TakeDamage(50);
+                    ObjHit.TakeDamage(30);
                     
                 }
                 else
@@ -53,6 +53,8 @@ public class GunScript : MonoBehaviour
                     
 
                 }
+
+
 
             }
 
