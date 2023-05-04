@@ -8,6 +8,7 @@ public class GunScript : MonoBehaviour
     public float range = 50f;
     GameManagerScript theManager;
     MainCharacterScript theMan;
+  
 
     public ParticleSystem MuzzleFlash;
     public Camera fpsCamera2;
@@ -18,7 +19,7 @@ public class GunScript : MonoBehaviour
     {
         theManager = FindObjectOfType<GameManagerScript>();
         theMan = FindObjectOfType<MainCharacterScript>();
-
+       
     }
 
     // Update is called once per frame

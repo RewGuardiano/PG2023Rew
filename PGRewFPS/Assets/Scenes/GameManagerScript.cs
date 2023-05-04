@@ -12,10 +12,10 @@ public class GameManagerScript : MonoBehaviour
     int MaxNumberOfDummys = 10;
     List<NPCSCript> currentDummies;
     public Transform DummyCloneTemplate;
-    
- 
-    
-    
+    public RawImage Crosshair;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +71,7 @@ public class GameManagerScript : MonoBehaviour
             npc.gunshotHeard(personShooting);
         }
         
+        
     }
 
     internal void ImDead(NPCSCript nPCSCript)
@@ -82,6 +83,7 @@ public class GameManagerScript : MonoBehaviour
         {
             // Stop spawning dummies
             KillCountReached?.Invoke();
+            Crosshair.enabled = false;
             return;
         }
       

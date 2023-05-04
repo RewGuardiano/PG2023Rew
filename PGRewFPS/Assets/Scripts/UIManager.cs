@@ -14,10 +14,13 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public int KillCount;
     public Transform PlayerPos;
-    public float spawnDistance = 2.0f; // The distance from the player to spawn the object
-    public float spawnHeight = 1.5f;
     public Transform MinionCloneTemplate;
+    public float spawnHeight = 6f;
+    public float spawnDistance = 2.0f;
     public GameObject YouWinMenu;
+    public GameObject popupObject;
+    public float delayTime = 1000f;
+    public RawImage Crosshair;
 
 
     public void EnableYouWinMenu()
@@ -31,13 +34,15 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         GameManagerScript.KillCountReached += EnableYouWinMenu;
+       
         
         
     }
     private void OnDisable()
     {
         GameManagerScript.KillCountReached -= EnableYouWinMenu;
-       
+
+
     }
     private void Awake()
     {
@@ -65,7 +70,13 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (MinionCloneTemplate == null)
+        {
+            YouWinMenu.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Crosshair.enabled = false;
+        }
     }
 
     public void BackToMenu()
@@ -74,23 +85,34 @@ public class UIManager : MonoBehaviour
     }
     public void PlayAgain()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("GameFinished");
     }
 
 
     public void SupriseButton()
     {
         Vector3 spawnPosition = PlayerPos.position + PlayerPos.forward * spawnDistance;
-        spawnPosition.y = spawnHeight;
+        spawnPosition.y = spawnHeight; // Set the spawn height
 
-
+        // Calculate the rotation to face the player
         Quaternion spawnRotation = Quaternion.LookRotation(PlayerPos.position - spawnPosition);
 
-        Instantiate(MinionCloneTemplate, spawnPosition, spawnRotation);
+        
+       
+          
+        MinionCloneTemplate = Instantiate(MinionCloneTemplate, spawnPosition,spawnRotation) ;
+        MinionCloneTemplate.transform.LookAt(PlayerPos.transform.position);
 
         YouWinMenu.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Crosshair.enabled = true;
+        
+
     }
 
-}
+   
+    }
+
+
+
