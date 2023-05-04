@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunScript : MonoBehaviour
 {
     public int damage = 10;
-    public float range = 100f;
+    public float range = 50f;
     GameManagerScript theManager;
     MainCharacterScript theMan;
 
@@ -51,8 +51,11 @@ public class GunScript : MonoBehaviour
 
             }
 
+
         }
+        
     }
   
-
 }
+  
+
