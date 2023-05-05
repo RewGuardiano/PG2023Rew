@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject popupObject;
     public float delayTime = 1000f;
     public RawImage Crosshair;
-
+    public Button Suprise;
 
     public void EnableYouWinMenu()
     {
@@ -76,6 +76,8 @@ public class UIManager : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             Crosshair.enabled = false;
+            Suprise.enabled = false;
+          
         }
     }
 
