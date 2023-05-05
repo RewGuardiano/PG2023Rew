@@ -2313,6 +2313,7 @@ MonoBehaviour:
   popupObject: {fileID: 1038328266}
   delayTime: 10
   Crosshair: {fileID: 1958235761}
+  Suprise: {fileID: 1833374913}
 --- !u!114 &1109594196
 MonoBehaviour:
   m_ObjectHideFlags: 0

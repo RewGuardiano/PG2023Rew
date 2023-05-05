@@ -10,7 +10,7 @@ public class ReTryGame : MonoBehaviour
     public void LoadGame()
     {
 
-        SceneManager.LoadScene("FinisedUI"); 
+        SceneManager.LoadScene("GameFinished"); 
     }
     public void ReturnMenu()
     {
